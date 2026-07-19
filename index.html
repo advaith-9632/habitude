@@ -48,7 +48,7 @@
   }
 
   .app {
-    max-width: 1100px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 48px 24px 100px;
   }
@@ -101,6 +101,7 @@
     padding: 6px;
     box-shadow: var(--shadow);
     width: fit-content;
+    flex-wrap: wrap;
   }
 
   .tab-btn {
@@ -149,6 +150,22 @@
     margin-top: 2px;
   }
 
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin: 36px 0 16px;
+  }
+  .section-head h2 {
+    font-size: 18px;
+    margin: 0;
+    font-weight: 600;
+  }
+  .section-head .sub {
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+
   /* --- progress bars / goal cards --- */
   .goal-cards {
     display: flex;
@@ -169,6 +186,7 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 12px;
+    gap: 10px;
   }
 
   .goal-title {
@@ -206,175 +224,49 @@
   .progress-pct {
     font-weight: 700;
     font-size: 15px;
+    flex-shrink: 0;
   }
 
-  /* --- calendar --- */
-  .cal-toolbar {
+  /* --- gym card --- */
+  .gym-card-body {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 18px;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .cal-legend {
-    display: flex;
-    gap: 14px;
-    flex-wrap: wrap;
-    font-size: 12px;
-    color: var(--ink-soft);
-  }
-  .cal-legend span { display: flex; align-items: center; gap: 6px; }
-
-  .unscheduled-tray {
-    background: var(--accent-soft);
-    border: 1px dashed var(--accent);
-    border-radius: var(--radius);
-    padding: 14px 18px;
-    margin-bottom: 20px;
-    display: none;
-  }
-  .unscheduled-tray.has-items { display: block; }
-  .unscheduled-tray h4 {
-    margin: 0 0 10px;
-    font-size: 13px;
-    color: var(--ink-soft);
-    font-weight: 600;
-  }
-  .unscheduled-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    min-height: 30px;
-  }
-
-  .cal-week-labels {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 8px;
-    margin-bottom: 6px;
-    font-size: 12px;
-    color: var(--ink-soft);
-    text-align: center;
-  }
-
-  .cal-week {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 8px;
-    margin-bottom: 8px;
-  }
-
-  .cal-day {
-    background: var(--bg-elev);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 8px;
-    min-height: 118px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    transition: background 0.15s ease, border-color 0.15s ease;
-  }
-  .cal-day.outside { opacity: 0.3; }
-  .cal-day.today { border-color: var(--accent); border-width: 2px; }
-  .cal-day.away { background: var(--grid-0); }
-  .cal-day.drag-over { background: var(--accent-2-soft); border-color: var(--accent-2); }
-  .unscheduled-list.drag-over { background: var(--accent-2-soft); outline: 2px solid var(--accent-2); border-radius: 10px; }
-
-  .cal-chip-ghost {
-    position: fixed;
-    pointer-events: none;
-    z-index: 999;
-    box-shadow: 0 10px 24px rgba(0,0,0,0.35);
-    opacity: 0.95;
-    transform: rotate(-2deg);
-  }
-
-  .cal-day-head {
-    display: flex;
     justify-content: space-between;
-    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
   }
-
-  .cal-day-num {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--ink-soft);
-  }
-  .cal-day.today .cal-day-num { color: var(--accent); }
-
-  .cal-day-actions {
-    display: flex;
-    gap: 4px;
-  }
-
-  .cal-icon-btn {
-    background: none;
+  .gym-stats { display: flex; gap: 24px; }
+  .gym-stat .num { font-size: 22px; font-weight: 700; color: #c95f8c; font-family: 'Georgia', serif; }
+  .gym-stat .label { font-size: 12px; color: var(--ink-soft); }
+  .gym-log-btn {
+    padding: 12px 22px;
+    border-radius: 999px;
     border: none;
-    cursor: pointer;
-    color: var(--ink-soft);
-    font-size: 12px;
-    padding: 2px 4px;
-    border-radius: 6px;
-    opacity: 0.6;
-    transition: opacity 0.15s ease, color 0.15s ease;
-  }
-  .cal-icon-btn:hover { opacity: 1; }
-  .cal-day.away .cal-icon-btn.away-btn { opacity: 1; color: var(--danger); }
-
-  .cal-chips {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    flex: 1;
-  }
-
-  .cal-chip {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    background: var(--chip-color, var(--accent));
+    background: #c95f8c;
     color: #fff;
-    border-radius: 8px;
-    padding: 4px 6px;
-    font-size: 11px;
-    line-height: 1.25;
-    cursor: grab;
-    position: relative;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: filter 0.2s ease, opacity 0.2s ease;
+    white-space: nowrap;
   }
-  .cal-chip.completed { opacity: 0.5; text-decoration: line-through; }
-  .cal-chip:active { cursor: grabbing; }
-
-  .cal-chip-check {
+  .gym-log-btn:hover { filter: brightness(1.08); }
+  .gym-log-btn.done { background: var(--grid-0); color: var(--ink-soft); }
+  .gym-history {
+    display: flex;
+    gap: 4px;
+    margin-top: 14px;
+    flex-wrap: wrap;
+  }
+  .gym-history .cell {
     width: 13px;
     height: 13px;
-    border-radius: 50%;
-    border: 1.5px solid rgba(255,255,255,0.8);
-    background: rgba(255,255,255,0.15);
-    flex-shrink: 0;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 9px;
+    border-radius: 3px;
+    background: var(--grid-0);
   }
-
-  .cal-chip-text {
-    flex: 1;
-    word-break: break-word;
-  }
-
-  .cal-chip-del {
-    background: none;
-    border: none;
-    color: rgba(255,255,255,0.8);
-    cursor: pointer;
-    font-size: 11px;
-    padding: 0;
-    flex-shrink: 0;
-  }
+  .gym-history .cell.done { background: #c95f8c; }
 
   /* --- checklists --- */
   .checklist-grid {
@@ -394,10 +286,13 @@
   .checklist-head {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 10px;
     margin-bottom: 16px;
   }
+  .checklist-head-left { display: flex; align-items: center; gap: 10px; }
   .checklist-head h3 { margin: 0; font-size: 17px; }
+  .checklist-count { font-size: 13px; color: var(--ink-soft); }
 
   .checklist-items {
     display: flex;
@@ -431,8 +326,44 @@
   }
   .check-box.done { background: var(--accent-2); border-color: var(--accent-2); }
 
-  .checklist-item-text { flex: 1; font-size: 14px; }
+  .checklist-item-text {
+    flex: 1;
+    font-size: 14px;
+    cursor: text;
+    padding: 2px 4px;
+    border-radius: 4px;
+  }
+  .checklist-item-text:hover { background: rgba(0,0,0,0.04); }
+  [data-theme="dark"] .checklist-item-text:hover { background: rgba(255,255,255,0.06); }
   .checklist-item-text.done { text-decoration: line-through; color: var(--ink-soft); }
+
+  .checklist-item-edit {
+    flex: 1;
+    font-size: 14px;
+    font-family: inherit;
+    padding: 2px 4px;
+    border-radius: 4px;
+    border: 1px solid var(--accent);
+    background: var(--bg-elev);
+    color: var(--ink);
+    outline: none;
+  }
+
+  .item-actions { display: flex; gap: 2px; flex-shrink: 0; }
+
+  .icon-btn {
+    background: none;
+    border: none;
+    color: var(--ink-soft);
+    cursor: pointer;
+    font-size: 13px;
+    opacity: 0.55;
+    transition: opacity 0.2s ease, color 0.2s ease;
+    padding: 4px 6px;
+    border-radius: 6px;
+  }
+  .icon-btn:hover { opacity: 1; }
+  .icon-btn.danger:hover { color: var(--danger); }
 
   .checklist-add {
     display: flex;
@@ -466,73 +397,52 @@
   }
   .small-btn:hover { filter: brightness(1.08); }
 
-  .del-btn {
-    background: none;
-    border: none;
-    color: var(--ink-soft);
-    cursor: pointer;
-    font-size: 15px;
-    opacity: 0.5;
-    transition: opacity 0.2s ease, color 0.2s ease;
-    padding: 2px 6px;
-  }
-  .del-btn:hover { opacity: 1; color: var(--danger); }
-
-  /* --- modal --- */
-  .modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(20, 16, 14, 0.5);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 50;
-    padding: 20px;
-  }
-  .modal-overlay.open { display: flex; }
-
-  .modal {
-    background: var(--bg-elev);
-    border-radius: var(--radius);
-    padding: 26px;
+  /* --- notes --- */
+  .notes-textarea {
     width: 100%;
-    max-width: 360px;
+    min-height: 90px;
+    resize: vertical;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--grid-0);
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 13px;
+    outline: none;
+    line-height: 1.5;
+  }
+  .notes-textarea:focus { border-color: var(--accent); }
+  .notes-saved-hint {
+    font-size: 11px;
+    color: var(--ink-soft);
+    margin-top: 6px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .notes-saved-hint.show { opacity: 1; }
+
+  /* --- countdowns --- */
+  .countdown-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .countdown-card {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
     box-shadow: var(--shadow);
   }
-  .modal h3 { margin: 0 0 16px; font-size: 17px; }
-  .modal label {
-    display: block;
-    font-size: 12px;
-    color: var(--ink-soft);
-    margin-bottom: 6px;
-    margin-top: 14px;
+  .countdown-card .cd-num {
+    font-size: 32px;
+    font-weight: 700;
+    font-family: 'Georgia', serif;
   }
-  .modal select, .modal input {
-    width: 100%;
-    padding: 10px 12px;
-    border-radius: 10px;
-    border: 1px solid var(--border);
-    background: var(--bg);
-    color: var(--ink);
-    font-size: 14px;
-    font-family: inherit;
-    outline: none;
-  }
-  .modal-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 20px;
-  }
-  .modal-cancel {
-    background: none;
-    border: none;
-    color: var(--ink-soft);
-    font-family: inherit;
-    font-size: 14px;
-    cursor: pointer;
-    padding: 10px 14px;
-  }
+  .countdown-card .cd-label { font-size: 13px; color: var(--ink-soft); margin-top: 2px; }
+  .countdown-card .cd-date { font-size: 11px; color: var(--ink-soft); margin-top: 8px; }
 
   footer {
     text-align: center;
@@ -544,8 +454,6 @@
 
   @media (max-width: 760px) {
     .summary { grid-template-columns: 1fr 1fr; }
-    .cal-week, .cal-week-labels { grid-template-columns: repeat(7, minmax(80px, 1fr)); }
-    .cal-week-wrap { overflow-x: auto; }
   }
 </style>
 </head>
@@ -561,8 +469,8 @@
 
   <nav class="tabs">
     <button class="tab-btn active" data-view="dashboard">Dashboard</button>
-    <button class="tab-btn" data-view="calendar">Calendar</button>
     <button class="tab-btn" data-view="goals">Goals</button>
+    <button class="tab-btn" data-view="notes">Notes</button>
   </nav>
 
   <div class="view active" id="view-dashboard">
@@ -581,57 +489,31 @@
       </div>
     </section>
 
+    <div class="countdown-grid" id="countdownGrid"></div>
+
     <section class="goal-cards" id="dashGoalCards"></section>
-  </div>
-
-  <div class="view" id="view-calendar">
-    <div class="cal-toolbar">
-      <div class="cal-legend" id="calLegend"></div>
-      <button class="small-btn" id="regenBtn">Reset to suggested schedule</button>
-    </div>
-
-    <div class="unscheduled-tray" id="unscheduledTray">
-      <h4>Unscheduled (drag onto a day)</h4>
-      <div class="unscheduled-list" id="unscheduledList"></div>
-    </div>
-
-    <div class="cal-week-wrap">
-      <div class="cal-week-labels">
-        <div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div><div>Sun</div>
-      </div>
-      <div id="calWeeks"></div>
-    </div>
   </div>
 
   <div class="view" id="view-goals">
     <div class="checklist-grid" id="checklistGrid"></div>
   </div>
 
-  <footer>tracked locally, kept privately</footer>
-</div>
-
-<div class="modal-overlay" id="addModal">
-  <div class="modal">
-    <h3>Add a task</h3>
-    <label for="addModalGoal">Goal</label>
-    <select id="addModalGoal"></select>
-    <label for="addModalTitle">Description</label>
-    <input type="text" id="addModalTitle" placeholder="e.g. Extra practice problems" maxlength="80">
-    <div class="modal-actions">
-      <button class="modal-cancel" id="addModalCancel">Cancel</button>
-      <button class="small-btn" id="addModalConfirm">Add</button>
-    </div>
+  <div class="view" id="view-notes">
+    <div class="checklist-grid" id="notesGrid"></div>
   </div>
+
+  <footer>tracked locally, kept privately</footer>
 </div>
 
 <script>
 (function () {
   // ---------- constants ----------
-  const START = '2026-07-18';
   const END = '2026-09-02';
+  const ESAT_EXAM_START = '2026-10-12';
 
   const GOALS = [
     { id: 'esat', name: 'ESAT Prep', color: '#c97b5f' },
+    { id: 'nea', name: 'A-Level DT NEA', color: '#5fa8a3' },
     { id: 'aero', name: 'Fundamentals of Aerodynamics', color: '#5f8cc9' },
     { id: 'blackholes', name: 'Black Holes & Time Warps', color: '#c9a15f' },
     { id: 'arduino', name: 'Arduino Project', color: '#7c9885' },
@@ -642,6 +524,15 @@
   const goalById = id => GOALS.find(g => g.id === id);
 
   const DEFAULT_CHECKLISTS = {
+    nea: [
+      'Section A: Identify & investigate design opportunity',
+      'Section A: Research existing products / market analysis',
+      'Section A: User needs & wants analysis',
+      'Section A: Write design brief',
+      'Section A: Specification (design criteria)',
+      'Section A: Final write-up & formatting',
+      'Section B: Initial design ideas (start)'
+    ],
     aero: ['Chapter 1', 'Chapter 2', 'Chapter 3', 'Chapter 4', 'Chapter 5'],
     blackholes: ['Chapter 1', 'Chapter 2', 'Chapter 3', 'Chapter 4'],
     arduino: [
@@ -673,9 +564,9 @@
     ]
   };
 
-  const EVENTS_KEY = 'trajectory.events.v1';
-  const AWAY_KEY = 'trajectory.away.v1';
-  const CHECKLISTS_KEY = 'trajectory.checklists.v1';
+  const CHECKLISTS_KEY = 'trajectory.checklists.v2';
+  const NOTES_KEY = 'trajectory.notes.v1';
+  const GYMLOG_KEY = 'trajectory.gymlog.v1';
   const THEME_KEY = 'trajectory.theme.v1';
 
   // ---------- date helpers ----------
@@ -690,111 +581,30 @@
   function todayDate() { const d = new Date(); d.setHours(0, 0, 0, 0); return d; }
   function mondayOf(d) {
     const nd = new Date(d);
-    const dow = nd.getDay(); // 0 Sun..6 Sat
+    const dow = nd.getDay();
     const diff = dow === 0 ? -6 : 1 - dow;
     return addDays(nd, diff);
   }
-
-  // ---------- seed schedule generation ----------
-  function phaseFor(d) {
-    const t = d.getTime();
-    if (t <= toDate('2026-07-31').getTime()) return 'aero';
-    if (t <= toDate('2026-08-08').getTime()) return 'arduino';
-    if (t <= toDate('2026-08-29').getTime()) return 'rocket';
-    return 'final';
-  }
-  function phaseGoalId(phase) {
-    return { aero: 'aero', arduino: 'arduino', rocket: 'rocket', final: 'esat' }[phase];
-  }
-
-  function generateSeedEvents() {
-    const events = [];
-    let id = 1;
-    const start = toDate(START), end = toDate(END);
-    const aeroQueue = [1, 2, 3, 4, 5].map(n => `Aerodynamics: Chapter ${n}`);
-    const bhQueue = [1, 2, 3, 4].map(n => `Black Holes: Chapter ${n}`);
-    const rocketQueue = [
-      'Rocket Propulsion: Module 1 — Intro & thermodynamics',
-      'Rocket Propulsion: Module 2 — Nozzle & thrust theory',
-      'Rocket Propulsion: Module 3 — Propellant chemistry',
-      'Rocket Propulsion: Module 4 — Solid vs liquid systems',
-      'Rocket Propulsion: Module 5 — Turbopumps & feed systems',
-      'Rocket Propulsion: Module 6 — Review & problems'
-    ];
-    let aeroCount = 0, bhCount = 0;
-
-    for (let d = new Date(start); d <= end; d = addDays(d, 1)) {
-      const ds = dateStr(d);
-      const dow = d.getDay();
-      if (dow === 0) continue; // Sunday: full rest
-
-      const phase = phaseFor(d);
-
-      if (dow >= 1 && dow <= 5) {
-        events.push({ id: id++, date: ds, goalId: 'gym', title: 'Gym session (50 min)', completed: false });
-      }
-
-      if (dow === 6) {
-        events.push({ id: id++, date: ds, goalId: 'esat', title: 'ESAT: timed practice / review', completed: false });
-        events.push({ id: id++, date: ds, goalId: phaseGoalId(phase), title: 'Catch-up & review', completed: false });
-        continue;
-      }
-
-      events.push({ id: id++, date: ds, goalId: 'esat', title: 'ESAT prep (45 min)', completed: false });
-
-      let primaryGoal, primaryTitle;
-      if (phase === 'aero') {
-        if (aeroQueue.length && aeroCount <= bhCount) {
-          primaryGoal = 'aero'; primaryTitle = aeroQueue.shift(); aeroCount++;
-        } else if (bhQueue.length) {
-          primaryGoal = 'blackholes'; primaryTitle = bhQueue.shift(); bhCount++;
-        } else if (aeroQueue.length) {
-          primaryGoal = 'aero'; primaryTitle = aeroQueue.shift(); aeroCount++;
-        } else {
-          primaryGoal = 'aero'; primaryTitle = 'Aerodynamics: review & problem sets';
-        }
-      } else if (phase === 'arduino') {
-        primaryGoal = 'arduino'; primaryTitle = 'Arduino: build session';
-      } else if (phase === 'rocket') {
-        if (rocketQueue.length) { primaryGoal = 'rocket'; primaryTitle = rocketQueue.shift(); }
-        else { primaryGoal = 'rocket'; primaryTitle = 'Rocket Propulsion: review'; }
-      } else {
-        primaryGoal = 'esat'; primaryTitle = 'ESAT: intensive review block';
-      }
-      events.push({ id: id++, date: ds, goalId: primaryGoal, title: primaryTitle, completed: false });
-    }
-    return events;
-  }
+  function daysBetween(a, b) { return Math.round((b - a) / 86400000); }
 
   // ---------- storage ----------
-  let events = loadEvents();
-  let awayDays = loadAway();
   let checklists = loadChecklists();
-  let nextId = events.reduce((m, e) => Math.max(m, e.id), 0) + 1;
-
-  function loadEvents() {
-    try {
-      const raw = localStorage.getItem(EVENTS_KEY);
-      if (raw) return JSON.parse(raw);
-    } catch (e) {}
-    const seeded = generateSeedEvents();
-    localStorage.setItem(EVENTS_KEY, JSON.stringify(seeded));
-    return seeded;
-  }
-  function saveEvents() { localStorage.setItem(EVENTS_KEY, JSON.stringify(events)); }
-
-  function loadAway() {
-    try {
-      const raw = localStorage.getItem(AWAY_KEY);
-      return raw ? JSON.parse(raw) : [];
-    } catch (e) { return []; }
-  }
-  function saveAway() { localStorage.setItem(AWAY_KEY, JSON.stringify(awayDays)); }
+  let notes = loadNotes();
+  let gymLog = loadGymLog();
 
   function loadChecklists() {
     try {
       const raw = localStorage.getItem(CHECKLISTS_KEY);
-      if (raw) return JSON.parse(raw);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        // fill in any goals missing from an older save without wiping existing progress
+        CHECKLIST_GOALS.forEach(g => {
+          if (!parsed[g.id]) {
+            parsed[g.id] = DEFAULT_CHECKLISTS[g.id].map((text, i) => ({ id: `${g.id}-${i}`, text, done: false }));
+          }
+        });
+        return parsed;
+      }
     } catch (e) {}
     const c = {};
     CHECKLIST_GOALS.forEach(g => {
@@ -804,6 +614,24 @@
     return c;
   }
   function saveChecklists() { localStorage.setItem(CHECKLISTS_KEY, JSON.stringify(checklists)); }
+
+  function loadNotes() {
+    try {
+      const raw = localStorage.getItem(NOTES_KEY);
+      if (raw) return JSON.parse(raw);
+    } catch (e) {}
+    return {};
+  }
+  function saveNotes() { localStorage.setItem(NOTES_KEY, JSON.stringify(notes)); }
+
+  function loadGymLog() {
+    try {
+      const raw = localStorage.getItem(GYMLOG_KEY);
+      if (raw) return JSON.parse(raw);
+    } catch (e) {}
+    return [];
+  }
+  function saveGymLog() { localStorage.setItem(GYMLOG_KEY, JSON.stringify(gymLog)); }
 
   // ---------- tab switching ----------
   const tabBtns = document.querySelectorAll('.tab-btn');
@@ -841,41 +669,52 @@
     return { pct: Math.round((done / items.length) * 100), done, total: items.length };
   }
 
-  // ---------- dashboard ----------
-  function renderDashboard() {
+  // ---------- gym log ----------
+  function isLoggedToday() {
+    return gymLog.includes(dateStr(todayDate()));
+  }
+  function toggleGymToday() {
+    const t = dateStr(todayDate());
+    if (gymLog.includes(t)) gymLog = gymLog.filter(d => d !== t);
+    else gymLog.push(t);
+    saveGymLog();
+    renderAll();
+  }
+  function gymCountThisWeek() {
     const today = todayDate();
-    const endD = toDate(END);
-    const daysLeft = Math.max(0, Math.ceil((endD - today) / 86400000));
-    document.getElementById('statDaysLeft').textContent = daysLeft;
-
-    const progresses = CHECKLIST_GOALS.map(g => checklistProgress(g.id).pct);
-    const overall = progresses.length ? Math.round(progresses.reduce((a, b) => a + b, 0) / progresses.length) : 0;
-    document.getElementById('statOverall').textContent = overall + '%';
-
     const weekStart = mondayOf(today);
     const weekEnd = addDays(weekStart, 6);
-    const gymDone = events.filter(e => {
-      if (e.goalId !== 'gym' || !e.completed || !e.date) return false;
-      const d = toDate(e.date);
+    return gymLog.filter(ds => {
+      const d = toDate(ds);
       return d >= weekStart && d <= weekEnd;
     }).length;
-    document.getElementById('statGymWeek').textContent = `${Math.min(gymDone, 5)}/5`;
-
-    const cardsEl = document.getElementById('dashGoalCards');
-    cardsEl.innerHTML = '';
-
-    CHECKLIST_GOALS.forEach(g => {
-      const { pct, done, total } = checklistProgress(g.id);
-      cardsEl.appendChild(buildGoalCard(g, pct, `${done}/${total} items complete`));
-    });
-
-    const gymGoal = goalById('gym');
-    const gymTotalDone = events.filter(e => e.goalId === 'gym' && e.completed).length;
-    const gymTotalScheduled = events.filter(e => e.goalId === 'gym').length;
-    const gymPct = gymTotalScheduled ? Math.round((gymTotalDone / gymTotalScheduled) * 100) : 0;
-    cardsEl.appendChild(buildGoalCard(gymGoal, gymPct, `${gymTotalDone}/${gymTotalScheduled} sessions completed all summer`));
   }
 
+  // ---------- countdowns ----------
+  function renderCountdowns() {
+    const grid = document.getElementById('countdownGrid');
+    const today = todayDate();
+    const items = [
+      { label: 'A-Level DT NEA — Section A due', date: END, color: '#5fa8a3' },
+      { label: 'Summer break ends', date: END, color: '#c97b5f' },
+      { label: 'ESAT exam window opens', date: ESAT_EXAM_START, color: '#c97b5f' }
+    ];
+    grid.innerHTML = '';
+    items.forEach(item => {
+      const d = toDate(item.date);
+      const diff = daysBetween(today, d);
+      const card = document.createElement('div');
+      card.className = 'countdown-card';
+      card.innerHTML = `
+        <div class="cd-num" style="color:${item.color}">${diff >= 0 ? diff : 0}</div>
+        <div class="cd-label">${item.label}</div>
+        <div class="cd-date">${d.toLocaleDateString('default', { weekday: 'long', month: 'long', day: 'numeric' })}</div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  // ---------- dashboard ----------
   function buildGoalCard(goal, pct, subtitle) {
     const card = document.createElement('div');
     card.className = 'goal-card';
@@ -890,256 +729,99 @@
     return card;
   }
 
-  // ---------- calendar ----------
-  let addModalTargetDate = null;
-  const addModal = document.getElementById('addModal');
-  const addModalGoal = document.getElementById('addModalGoal');
-  const addModalTitle = document.getElementById('addModalTitle');
+  function buildGymCard() {
+    const card = document.createElement('div');
+    card.className = 'goal-card';
+    const week = gymCountThisWeek();
+    const total = gymLog.length;
+    const loggedToday = isLoggedToday();
 
-  GOALS.forEach(g => {
-    const opt = document.createElement('option');
-    opt.value = g.id;
-    opt.textContent = g.name;
-    addModalGoal.appendChild(opt);
-  });
+    const head = document.createElement('div');
+    head.className = 'goal-card-head';
+    head.innerHTML = `<div class="goal-title"><span class="dot" style="background:#c95f8c"></span>Gym</div>`;
+    card.appendChild(head);
 
-  function openAddModal(date) {
-    addModalTargetDate = date;
-    addModalTitle.value = '';
-    addModal.classList.add('open');
-    addModalTitle.focus();
-  }
-  document.getElementById('addModalCancel').addEventListener('click', () => addModal.classList.remove('open'));
-  addModal.addEventListener('click', e => { if (e.target === addModal) addModal.classList.remove('open'); });
-  document.getElementById('addModalConfirm').addEventListener('click', () => {
-    const text = addModalTitle.value.trim();
-    if (!text) return;
-    events.push({ id: nextId++, date: addModalTargetDate, goalId: addModalGoal.value, title: text, completed: false });
-    saveEvents();
-    addModal.classList.remove('open');
-    renderAll();
-  });
+    const body = document.createElement('div');
+    body.className = 'gym-card-body';
 
-  function renderLegend() {
-    const legendEl = document.getElementById('calLegend');
-    legendEl.innerHTML = GOALS.map(g =>
-      `<span><span class="dot" style="background:${g.color}"></span>${g.name}</span>`
-    ).join('');
-  }
+    const stats = document.createElement('div');
+    stats.className = 'gym-stats';
+    stats.innerHTML = `
+      <div class="gym-stat"><div class="num">${Math.min(week, 5)}/5</div><div class="label">this week</div></div>
+      <div class="gym-stat"><div class="num">${total}</div><div class="label">total sessions</div></div>
+    `;
 
-  function dropTargetAt(x, y) {
-    const el = document.elementFromPoint(x, y);
-    if (!el) return null;
-    return el.closest('[data-drop-date]');
-  }
+    const btn = document.createElement('button');
+    btn.className = 'gym-log-btn' + (loggedToday ? ' done' : '');
+    btn.textContent = loggedToday ? '✓ Logged today' : 'Log today’s session';
+    btn.addEventListener('click', toggleGymToday);
 
-  function beginPointerDrag(ev, chip, downEvent) {
-    const startX = downEvent.clientX, startY = downEvent.clientY;
-    let dragging = false;
-    let ghost = null;
+    body.appendChild(stats);
+    body.appendChild(btn);
+    card.appendChild(body);
 
-    function moveGhost(x, y) {
-      ghost.style.left = (x - ghost.offsetWidth / 2) + 'px';
-      ghost.style.top = (y - 16) + 'px';
-    }
-
-    function onMove(e) {
-      if (!dragging) {
-        if (Math.abs(e.clientX - startX) < 4 && Math.abs(e.clientY - startY) < 4) return;
-        dragging = true;
-        ghost = chip.cloneNode(true);
-        ghost.classList.add('cal-chip-ghost');
-        ghost.style.width = chip.offsetWidth + 'px';
-        document.body.appendChild(ghost);
-        chip.style.opacity = '0.35';
-      }
-      moveGhost(e.clientX, e.clientY);
-      document.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over'));
-      const target = dropTargetAt(e.clientX, e.clientY);
-      if (target) target.classList.add('drag-over');
-    }
-
-    function onUp(e) {
-      document.removeEventListener('pointermove', onMove);
-      document.removeEventListener('pointerup', onUp);
-      document.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over'));
-      if (!dragging) return;
-      if (ghost) ghost.remove();
-      const target = dropTargetAt(e.clientX, e.clientY);
-      if (target) {
-        const nd = target.dataset.dropDate;
-        ev.date = nd === '' ? null : nd;
-        saveEvents();
-        renderAll();
-      } else {
-        chip.style.opacity = '';
-      }
-    }
-
-    document.addEventListener('pointermove', onMove);
-    document.addEventListener('pointerup', onUp);
-  }
-
-  function buildChip(ev) {
-    const goal = goalById(ev.goalId);
-    const chip = document.createElement('div');
-    chip.className = 'cal-chip' + (ev.completed ? ' completed' : '');
-    chip.style.setProperty('--chip-color', goal ? goal.color : '#999');
-    chip.dataset.id = ev.id;
-
-    const check = document.createElement('div');
-    check.className = 'cal-chip-check';
-    check.textContent = ev.completed ? '✓' : '';
-    check.addEventListener('click', e => {
-      e.stopPropagation();
-      ev.completed = !ev.completed;
-      saveEvents();
-      renderAll();
-    });
-
-    const text = document.createElement('div');
-    text.className = 'cal-chip-text';
-    text.textContent = ev.title;
-
-    const del = document.createElement('button');
-    del.className = 'cal-chip-del';
-    del.textContent = '✕';
-    del.addEventListener('click', e => {
-      e.stopPropagation();
-      events = events.filter(x => x.id !== ev.id);
-      saveEvents();
-      renderAll();
-    });
-
-    chip.appendChild(check);
-    chip.appendChild(text);
-    chip.appendChild(del);
-
-    chip.addEventListener('pointerdown', e => {
-      if (check.contains(e.target) || del.contains(e.target)) return;
-      if (e.button !== undefined && e.button !== 0) return;
-      e.preventDefault();
-      beginPointerDrag(ev, chip, e);
-    });
-
-    return chip;
-  }
-
-  function renderCalendar() {
-    renderLegend();
-
-    const startD = toDate(START), endD = toDate(END);
-    const gridStart = mondayOf(startD);
-    const lastMonday = mondayOf(endD);
-    const gridEnd = addDays(lastMonday, 6);
-
-    const weeksEl = document.getElementById('calWeeks');
-    weeksEl.innerHTML = '';
+    const hist = document.createElement('div');
+    hist.className = 'gym-history';
     const today = todayDate();
-
-    for (let wStart = new Date(gridStart); wStart <= gridEnd; wStart = addDays(wStart, 7)) {
-      const weekRow = document.createElement('div');
-      weekRow.className = 'cal-week';
-
-      for (let i = 0; i < 7; i++) {
-        const d = addDays(wStart, i);
-        const ds = dateStr(d);
-        const outside = d < startD || d > endD;
-        const isAway = awayDays.includes(ds);
-        const isToday = dateStr(d) === dateStr(today);
-
-        const cell = document.createElement('div');
-        cell.className = 'cal-day' + (outside ? ' outside' : '') + (isToday ? ' today' : '') + (isAway ? ' away' : '');
-
-        const head = document.createElement('div');
-        head.className = 'cal-day-head';
-        const num = document.createElement('div');
-        num.className = 'cal-day-num';
-        num.textContent = d.getDate() + (d.getDate() === 1 || i === 0 ? ' ' + d.toLocaleString('default', { month: 'short' }) : '');
-        head.appendChild(num);
-
-        if (!outside) {
-          const actions = document.createElement('div');
-          actions.className = 'cal-day-actions';
-
-          const addBtn = document.createElement('button');
-          addBtn.className = 'cal-icon-btn';
-          addBtn.textContent = '+';
-          addBtn.title = 'Add task';
-          addBtn.addEventListener('click', () => openAddModal(ds));
-
-          const awayBtn = document.createElement('button');
-          awayBtn.className = 'cal-icon-btn away-btn';
-          awayBtn.textContent = '✈';
-          awayBtn.title = isAway ? 'Marked away — click to unmark' : 'Mark as away (unschedules this day)';
-          awayBtn.addEventListener('click', () => {
-            if (isAway) {
-              awayDays = awayDays.filter(x => x !== ds);
-            } else {
-              awayDays.push(ds);
-              events.forEach(e => { if (e.date === ds) e.date = null; });
-              saveEvents();
-            }
-            saveAway();
-            renderAll();
-          });
-
-          actions.appendChild(addBtn);
-          actions.appendChild(awayBtn);
-          head.appendChild(actions);
-        }
-
-        cell.appendChild(head);
-
-        const chipsWrap = document.createElement('div');
-        chipsWrap.className = 'cal-chips';
-        events.filter(e => e.date === ds).forEach(ev => chipsWrap.appendChild(buildChip(ev)));
-        cell.appendChild(chipsWrap);
-
-        if (!outside) cell.dataset.dropDate = ds;
-
-        weekRow.appendChild(cell);
-      }
-      weeksEl.appendChild(weekRow);
+    for (let i = 41; i >= 0; i--) {
+      const d = addDays(today, -i);
+      const cell = document.createElement('div');
+      cell.className = 'cell' + (gymLog.includes(dateStr(d)) ? ' done' : '');
+      cell.title = dateStr(d);
+      hist.appendChild(cell);
     }
+    card.appendChild(hist);
 
-    // unscheduled tray
-    const trayEl = document.getElementById('unscheduledTray');
-    const trayList = document.getElementById('unscheduledList');
-    trayList.innerHTML = '';
-    trayList.dataset.dropDate = '';
-    const unscheduled = events.filter(e => !e.date);
-    trayEl.classList.toggle('has-items', unscheduled.length > 0);
-    unscheduled.forEach(ev => trayList.appendChild(buildChip(ev)));
+    return card;
   }
 
-  document.getElementById('regenBtn').addEventListener('click', () => {
-    if (!confirm('Reset the calendar to the suggested schedule? This clears your custom edits, completions, and away days.')) return;
-    events = generateSeedEvents();
-    nextId = events.reduce((m, e) => Math.max(m, e.id), 0) + 1;
-    awayDays = [];
-    saveEvents();
-    saveAway();
-    renderAll();
-  });
+  function renderDashboard() {
+    const today = todayDate();
+    const endD = toDate(END);
+    const daysLeft = Math.max(0, daysBetween(today, endD));
+    document.getElementById('statDaysLeft').textContent = daysLeft;
 
-  // ---------- goals / checklists ----------
+    const progresses = CHECKLIST_GOALS.map(g => checklistProgress(g.id).pct);
+    const overall = progresses.length ? Math.round(progresses.reduce((a, b) => a + b, 0) / progresses.length) : 0;
+    document.getElementById('statOverall').textContent = overall + '%';
+
+    document.getElementById('statGymWeek').textContent = `${Math.min(gymCountThisWeek(), 5)}/5`;
+
+    renderCountdowns();
+
+    const cardsEl = document.getElementById('dashGoalCards');
+    cardsEl.innerHTML = '';
+    CHECKLIST_GOALS.forEach(g => {
+      const { pct, done, total } = checklistProgress(g.id);
+      cardsEl.appendChild(buildGoalCard(g, pct, `${done}/${total} items complete`));
+    });
+    cardsEl.appendChild(buildGymCard());
+  }
+
+  // ---------- goals / checklists (editable) ----------
   function renderGoals() {
     const grid = document.getElementById('checklistGrid');
     grid.innerHTML = '';
 
     CHECKLIST_GOALS.forEach(g => {
+      const items = checklists[g.id] || [];
+      const doneCount = items.filter(i => i.done).length;
+
       const card = document.createElement('div');
       card.className = 'checklist-card';
 
       const head = document.createElement('div');
       head.className = 'checklist-head';
-      head.innerHTML = `<span class="dot" style="background:${g.color}"></span><h3>${g.name}</h3>`;
+      head.innerHTML = `
+        <div class="checklist-head-left"><span class="dot" style="background:${g.color}"></span><h3>${g.name}</h3></div>
+        <div class="checklist-count">${doneCount}/${items.length}</div>
+      `;
       card.appendChild(head);
 
       const itemsWrap = document.createElement('div');
       itemsWrap.className = 'checklist-items';
-      (checklists[g.id] || []).forEach(item => {
+
+      items.forEach(item => {
         const row = document.createElement('div');
         row.className = 'checklist-item';
 
@@ -1155,19 +837,57 @@
         const text = document.createElement('div');
         text.className = 'checklist-item-text' + (item.done ? ' done' : '');
         text.textContent = item.text;
+        text.title = 'Click to edit';
 
-        const del = document.createElement('button');
-        del.className = 'del-btn';
-        del.textContent = '✕';
-        del.addEventListener('click', () => {
+        function startEdit() {
+          const input = document.createElement('input');
+          input.type = 'text';
+          input.className = 'checklist-item-edit';
+          input.value = item.text;
+          input.maxLength = 120;
+          row.replaceChild(input, text);
+          input.focus();
+          input.select();
+
+          function commit() {
+            const val = input.value.trim();
+            if (val) item.text = val;
+            saveChecklists();
+            renderAll();
+          }
+          input.addEventListener('blur', commit);
+          input.addEventListener('keydown', e => {
+            if (e.key === 'Enter') { e.preventDefault(); input.blur(); }
+            if (e.key === 'Escape') { e.preventDefault(); input.value = item.text; input.blur(); }
+          });
+        }
+        text.addEventListener('click', startEdit);
+
+        const actions = document.createElement('div');
+        actions.className = 'item-actions';
+
+        const editBtn = document.createElement('button');
+        editBtn.className = 'icon-btn';
+        editBtn.textContent = '✎';
+        editBtn.title = 'Edit';
+        editBtn.addEventListener('click', startEdit);
+
+        const delBtn = document.createElement('button');
+        delBtn.className = 'icon-btn danger';
+        delBtn.textContent = '✕';
+        delBtn.title = 'Delete';
+        delBtn.addEventListener('click', () => {
           checklists[g.id] = checklists[g.id].filter(i => i.id !== item.id);
           saveChecklists();
           renderAll();
         });
 
+        actions.appendChild(editBtn);
+        actions.appendChild(delBtn);
+
         row.appendChild(box);
         row.appendChild(text);
-        row.appendChild(del);
+        row.appendChild(actions);
         itemsWrap.appendChild(row);
       });
       card.appendChild(itemsWrap);
@@ -1177,7 +897,7 @@
       const input = document.createElement('input');
       input.type = 'text';
       input.placeholder = 'Add a sub-task…';
-      input.maxLength = 80;
+      input.maxLength = 120;
       const addBtn = document.createElement('button');
       addBtn.className = 'small-btn';
       addBtn.textContent = 'Add';
@@ -1200,11 +920,51 @@
     });
   }
 
+  // ---------- notes ----------
+  function renderNotes() {
+    const grid = document.getElementById('notesGrid');
+    grid.innerHTML = '';
+
+    CHECKLIST_GOALS.forEach(g => {
+      const card = document.createElement('div');
+      card.className = 'checklist-card';
+
+      const head = document.createElement('div');
+      head.className = 'checklist-head';
+      head.innerHTML = `<div class="checklist-head-left"><span class="dot" style="background:${g.color}"></span><h3>${g.name}</h3></div>`;
+      card.appendChild(head);
+
+      const textarea = document.createElement('textarea');
+      textarea.className = 'notes-textarea';
+      textarea.placeholder = `Notes, research, ideas, blockers for ${g.name}…`;
+      textarea.value = notes[g.id] || '';
+
+      const hint = document.createElement('div');
+      hint.className = 'notes-saved-hint';
+      hint.textContent = 'Saved';
+
+      let saveTimer = null;
+      textarea.addEventListener('input', () => {
+        notes[g.id] = textarea.value;
+        clearTimeout(saveTimer);
+        saveTimer = setTimeout(() => {
+          saveNotes();
+          hint.classList.add('show');
+          setTimeout(() => hint.classList.remove('show'), 1200);
+        }, 400);
+      });
+
+      card.appendChild(textarea);
+      card.appendChild(hint);
+      grid.appendChild(card);
+    });
+  }
+
   // ---------- render all ----------
   function renderAll() {
     renderDashboard();
-    renderCalendar();
     renderGoals();
+    renderNotes();
   }
 
   renderAll();
