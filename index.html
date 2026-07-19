@@ -6,34 +6,34 @@
 <title>Trajectory — Summer Goal Tracker</title>
 <style>
   :root {
-    --bg: #faf7f2;
+    --bg: #fff3ed;
     --bg-elev: #ffffff;
-    --ink: #2b2521;
-    --ink-soft: #6f665e;
-    --border: #ece5db;
-    --accent: #c97b5f;
-    --accent-soft: #f3ded4;
-    --accent-2: #7c9885;
-    --accent-2-soft: #dde8e0;
-    --grid-0: #ede7de;
-    --danger: #c25b4f;
-    --shadow: 0 1px 2px rgba(43,37,33,0.04), 0 8px 24px rgba(43,37,33,0.06);
+    --ink: #363636;
+    --ink-soft: #736e6b;
+    --border: #f0e1d5;
+    --accent: #c57b57;
+    --accent-soft: #f3ddd0;
+    --accent-2: #4a654e;
+    --accent-2-soft: #dfe6df;
+    --grid-0: #f1e5da;
+    --danger: #b5533f;
+    --shadow: 0 1px 2px rgba(54,54,54,0.05), 0 8px 24px rgba(54,54,54,0.07);
     --radius: 18px;
   }
 
   [data-theme="dark"] {
-    --bg: #1b1815;
-    --bg-elev: #242019;
-    --ink: #f1ece3;
-    --ink-soft: #a89e91;
-    --border: #35302a;
-    --accent: #e0977a;
-    --accent-soft: #3c2c25;
-    --accent-2: #93b39d;
-    --accent-2-soft: #263029;
-    --grid-0: #2b2621;
-    --danger: #e0857a;
-    --shadow: 0 1px 2px rgba(0,0,0,0.2), 0 8px 24px rgba(0,0,0,0.35);
+    --bg: #232222;
+    --bg-elev: #363636;
+    --ink: #fff3ed;
+    --ink-soft: #c4bab2;
+    --border: #4a4644;
+    --accent: #d6916f;
+    --accent-soft: #4a352c;
+    --accent-2: #83a087;
+    --accent-2-soft: #2c3830;
+    --grid-0: #403c3a;
+    --danger: #d98a7c;
+    --shadow: 0 1px 2px rgba(0,0,0,0.25), 0 8px 24px rgba(0,0,0,0.4);
   }
 
   * { box-sizing: border-box; }
@@ -166,35 +166,112 @@
     color: var(--ink-soft);
   }
 
-  /* --- progress bars / goal cards --- */
-  .goal-cards {
+  /* --- hero ring --- */
+  .hero-row {
     display: flex;
-    flex-direction: column;
-    gap: 14px;
+    gap: 20px;
+    align-items: stretch;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
   }
-
-  .goal-card {
+  .hero-ring-card {
     background: var(--bg-elev);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 20px 24px;
     box-shadow: var(--shadow);
-  }
-
-  .goal-card-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-    gap: 10px;
-  }
-
-  .goal-title {
+    padding: 24px 32px;
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-size: 16px;
+    gap: 24px;
+    flex: 1;
+    min-width: 280px;
+  }
+  .hero-ring-copy h2 {
+    margin: 0 0 4px;
+    font-size: 19px;
     font-weight: 600;
+  }
+  .hero-ring-copy p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--ink-soft);
+    max-width: 240px;
+    line-height: 1.5;
+  }
+
+  /* --- bar chart --- */
+  .chart-card {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px 26px;
+    box-shadow: var(--shadow);
+    margin-bottom: 24px;
+  }
+  .chart-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 12px;
+  }
+  .chart-bar-row:last-child { margin-bottom: 0; }
+  .chart-bar-label {
+    width: 190px;
+    flex-shrink: 0;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .chart-bar-track {
+    flex: 1;
+    height: 14px;
+    border-radius: 999px;
+    background: var(--grid-0);
+    overflow: hidden;
+  }
+  .chart-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    transition: width 0.5s ease;
+  }
+  .chart-bar-pct {
+    width: 42px;
+    flex-shrink: 0;
+    text-align: right;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: 'Georgia', serif;
+  }
+
+  /* --- ring grid (goal cards) --- */
+  .ring-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+  .ring-card {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 16px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+  }
+  .ring-card h4 {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  .ring-card .goal-sub {
+    font-size: 12px;
+    color: var(--ink-soft);
   }
 
   .dot {
@@ -204,45 +281,31 @@
     flex-shrink: 0;
   }
 
-  .goal-sub {
-    font-size: 13px;
-    color: var(--ink-soft);
-  }
-
-  .progress-track {
-    height: 10px;
-    border-radius: 999px;
-    background: var(--grid-0);
-    overflow: hidden;
-  }
-  .progress-fill {
-    height: 100%;
-    border-radius: 999px;
-    transition: width 0.4s ease;
-  }
-
-  .progress-pct {
-    font-weight: 700;
-    font-size: 15px;
-    flex-shrink: 0;
-  }
-
   /* --- gym card --- */
-  .gym-card-body {
+  .gym-card {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    box-shadow: var(--shadow);
+    margin-bottom: 24px;
+  }
+  .gym-card-top {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 16px;
     flex-wrap: wrap;
+    margin-bottom: 18px;
   }
+  .gym-title { display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 600; }
   .gym-stats { display: flex; gap: 24px; }
-  .gym-stat .num { font-size: 22px; font-weight: 700; color: #c95f8c; font-family: 'Georgia', serif; }
+  .gym-stat .num { font-size: 22px; font-weight: 700; font-family: 'Georgia', serif; }
   .gym-stat .label { font-size: 12px; color: var(--ink-soft); }
   .gym-log-btn {
     padding: 12px 22px;
     border-radius: 999px;
     border: none;
-    background: #c95f8c;
     color: #fff;
     font-family: inherit;
     font-size: 14px;
@@ -253,20 +316,25 @@
     white-space: nowrap;
   }
   .gym-log-btn:hover { filter: brightness(1.08); }
-  .gym-log-btn.done { background: var(--grid-0); color: var(--ink-soft); }
-  .gym-history {
-    display: flex;
-    gap: 4px;
-    margin-top: 14px;
-    flex-wrap: wrap;
+  .gym-log-btn.done { background: var(--grid-0) !important; color: var(--ink-soft); }
+
+  .heatmap {
+    display: grid;
+    grid-template-rows: repeat(7, 13px);
+    grid-auto-flow: column;
+    grid-auto-columns: 13px;
+    gap: 3px;
+    overflow-x: auto;
+    padding-bottom: 4px;
   }
-  .gym-history .cell {
+  .heatmap .cell {
     width: 13px;
     height: 13px;
     border-radius: 3px;
     background: var(--grid-0);
   }
-  .gym-history .cell.done { background: #c95f8c; }
+  .heatmap-wrap { margin-top: 4px; }
+  .heatmap-caption { font-size: 11px; color: var(--ink-soft); margin-top: 8px; }
 
   /* --- checklists --- */
   .checklist-grid {
@@ -489,9 +557,18 @@
       </div>
     </section>
 
-    <div class="countdown-grid" id="countdownGrid"></div>
+    <div class="hero-row" id="heroRow"></div>
 
-    <section class="goal-cards" id="dashGoalCards"></section>
+    <div class="chart-card">
+      <h2 style="margin:0 0 18px;font-size:16px;">Progress by goal</h2>
+      <div id="barChart"></div>
+    </div>
+
+    <div class="ring-grid" id="ringGrid"></div>
+
+    <div class="gym-card" id="gymCard"></div>
+
+    <div class="countdown-grid" id="countdownGrid"></div>
   </div>
 
   <div class="view" id="view-goals">
@@ -508,17 +585,18 @@
 <script>
 (function () {
   // ---------- constants ----------
+  const START = '2026-07-18';
   const END = '2026-09-02';
   const ESAT_EXAM_START = '2026-10-12';
 
   const GOALS = [
-    { id: 'esat', name: 'ESAT Prep', color: '#c97b5f' },
-    { id: 'nea', name: 'A-Level DT NEA', color: '#5fa8a3' },
-    { id: 'aero', name: 'Fundamentals of Aerodynamics', color: '#5f8cc9' },
-    { id: 'blackholes', name: 'Black Holes & Time Warps', color: '#c9a15f' },
-    { id: 'arduino', name: 'Arduino Project', color: '#7c9885' },
-    { id: 'rocket', name: 'Rocket Propulsion (MIT OCW)', color: '#a15fc9' },
-    { id: 'gym', name: 'Gym', color: '#c95f8c' }
+    { id: 'esat', name: 'ESAT Prep', color: '#c57b57' },
+    { id: 'nea', name: 'A-Level DT NEA', color: '#4a654e' },
+    { id: 'aero', name: 'Fundamentals of Aerodynamics', color: '#95b8d1' },
+    { id: 'blackholes', name: 'Black Holes & Time Warps', color: '#6f95b0' },
+    { id: 'arduino', name: 'Arduino Project', color: '#7c9a80' },
+    { id: 'rocket', name: 'Rocket Propulsion (MIT OCW)', color: '#a85d3d' },
+    { id: 'gym', name: 'Gym', color: '#b8a190' }
   ];
   const CHECKLIST_GOALS = GOALS.filter(g => g.id !== 'gym');
   const goalById = id => GOALS.find(g => g.id === id);
@@ -659,6 +737,7 @@
   themeToggle.addEventListener('click', () => {
     const cur = document.documentElement.getAttribute('data-theme');
     applyTheme(cur === 'dark' ? 'light' : 'dark');
+    renderAll();
   });
 
   // ---------- checklist progress ----------
@@ -691,13 +770,31 @@
   }
 
   // ---------- countdowns ----------
+  function cssVar(name) {
+    return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  }
+
+  function ringSVG(pct, color, size, stroke) {
+    const p = Math.max(0, Math.min(100, pct));
+    const r = (size - stroke) / 2;
+    const c = 2 * Math.PI * r;
+    const offset = c * (1 - p / 100);
+    const cx = size / 2, cy = size / 2;
+    return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
+      <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${cssVar('--grid-0')}" stroke-width="${stroke}" />
+      <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${color}" stroke-width="${stroke}" stroke-linecap="round"
+        stroke-dasharray="${c}" stroke-dashoffset="${offset}" transform="rotate(-90 ${cx} ${cy})" style="transition:stroke-dashoffset 0.6s ease;" />
+      <text x="${cx}" y="${cy}" text-anchor="middle" dominant-baseline="central" font-size="${Math.round(size * 0.22)}" font-weight="700" fill="${cssVar('--ink')}" font-family="Georgia, serif">${p}%</text>
+    </svg>`;
+  }
+
   function renderCountdowns() {
     const grid = document.getElementById('countdownGrid');
     const today = todayDate();
     const items = [
-      { label: 'A-Level DT NEA — Section A due', date: END, color: '#5fa8a3' },
-      { label: 'Summer break ends', date: END, color: '#c97b5f' },
-      { label: 'ESAT exam window opens', date: ESAT_EXAM_START, color: '#c97b5f' }
+      { label: 'A-Level DT NEA — Section A due', date: END, color: '#4a654e' },
+      { label: 'Summer break ends', date: END, color: '#c57b57' },
+      { label: 'ESAT exam window opens', date: ESAT_EXAM_START, color: '#a85d3d' }
     ];
     grid.innerHTML = '';
     items.forEach(item => {
@@ -715,64 +812,118 @@
   }
 
   // ---------- dashboard ----------
-  function buildGoalCard(goal, pct, subtitle) {
-    const card = document.createElement('div');
-    card.className = 'goal-card';
-    card.innerHTML = `
-      <div class="goal-card-head">
-        <div class="goal-title"><span class="dot" style="background:${goal.color}"></span>${goal.name}</div>
-        <div class="progress-pct" style="color:${goal.color}">${pct}%</div>
+  function renderHeroRow(overallPct) {
+    const el = document.getElementById('heroRow');
+    const today = todayDate();
+    const startD = toDate(START);
+    const endD = toDate(END);
+    const totalSpan = daysBetween(startD, endD);
+    const elapsed = Math.max(0, Math.min(totalSpan, daysBetween(startD, today)));
+    const elapsedPct = totalSpan > 0 ? Math.round((elapsed / totalSpan) * 100) : 0;
+
+    el.innerHTML = '';
+
+    const progressCard = document.createElement('div');
+    progressCard.className = 'hero-ring-card';
+    progressCard.innerHTML = `
+      ${ringSVG(overallPct, cssVar('--accent'), 130, 12)}
+      <div class="hero-ring-copy">
+        <h2>Overall academic progress</h2>
+        <p>Average completion across ESAT, NEA, Aerodynamics, Black Holes, Arduino and Rocket Propulsion.</p>
       </div>
-      <div class="progress-track"><div class="progress-fill" style="width:${pct}%;background:${goal.color}"></div></div>
-      <div class="goal-sub" style="margin-top:8px;">${subtitle}</div>
     `;
-    return card;
+
+    const timeCard = document.createElement('div');
+    timeCard.className = 'hero-ring-card';
+    timeCard.innerHTML = `
+      ${ringSVG(elapsedPct, cssVar('--accent-2'), 130, 12)}
+      <div class="hero-ring-copy">
+        <h2>Summer elapsed</h2>
+        <p>${elapsed} of ${totalSpan} days gone since Jul 18. Progress above should be keeping pace with this.</p>
+      </div>
+    `;
+
+    el.appendChild(progressCard);
+    el.appendChild(timeCard);
   }
 
-  function buildGymCard() {
-    const card = document.createElement('div');
-    card.className = 'goal-card';
+  function renderBarChart() {
+    const el = document.getElementById('barChart');
+    el.innerHTML = '';
+    CHECKLIST_GOALS.forEach(g => {
+      const { pct } = checklistProgress(g.id);
+      const row = document.createElement('div');
+      row.className = 'chart-bar-row';
+      row.innerHTML = `
+        <div class="chart-bar-label"><span class="dot" style="background:${g.color}"></span>${g.name}</div>
+        <div class="chart-bar-track"><div class="chart-bar-fill" style="width:${pct}%;background:${g.color}"></div></div>
+        <div class="chart-bar-pct" style="color:${g.color}">${pct}%</div>
+      `;
+      el.appendChild(row);
+    });
+  }
+
+  function renderRingGrid() {
+    const el = document.getElementById('ringGrid');
+    el.innerHTML = '';
+    CHECKLIST_GOALS.forEach(g => {
+      const { pct, done, total } = checklistProgress(g.id);
+      const card = document.createElement('div');
+      card.className = 'ring-card';
+      card.innerHTML = `
+        ${ringSVG(pct, g.color, 96, 9)}
+        <h4>${g.name}</h4>
+        <div class="goal-sub">${done}/${total} items</div>
+      `;
+      el.appendChild(card);
+    });
+  }
+
+  function renderGymCard() {
+    const gymGoal = goalById('gym');
+    const el = document.getElementById('gymCard');
     const week = gymCountThisWeek();
     const total = gymLog.length;
     const loggedToday = isLoggedToday();
 
-    const head = document.createElement('div');
-    head.className = 'goal-card-head';
-    head.innerHTML = `<div class="goal-title"><span class="dot" style="background:#c95f8c"></span>Gym</div>`;
-    card.appendChild(head);
+    el.innerHTML = '';
 
-    const body = document.createElement('div');
-    body.className = 'gym-card-body';
-
-    const stats = document.createElement('div');
-    stats.className = 'gym-stats';
-    stats.innerHTML = `
-      <div class="gym-stat"><div class="num">${Math.min(week, 5)}/5</div><div class="label">this week</div></div>
-      <div class="gym-stat"><div class="num">${total}</div><div class="label">total sessions</div></div>
+    const top = document.createElement('div');
+    top.className = 'gym-card-top';
+    top.innerHTML = `
+      <div class="gym-title"><span class="dot" style="background:${gymGoal.color}"></span>Gym</div>
+      <div class="gym-stats">
+        <div class="gym-stat"><div class="num" style="color:${gymGoal.color}">${Math.min(week, 5)}/5</div><div class="label">this week</div></div>
+        <div class="gym-stat"><div class="num" style="color:${gymGoal.color}">${total}</div><div class="label">total sessions</div></div>
+      </div>
     `;
-
     const btn = document.createElement('button');
     btn.className = 'gym-log-btn' + (loggedToday ? ' done' : '');
+    btn.style.background = loggedToday ? '' : gymGoal.color;
     btn.textContent = loggedToday ? '✓ Logged today' : 'Log today’s session';
     btn.addEventListener('click', toggleGymToday);
+    top.appendChild(btn);
+    el.appendChild(top);
 
-    body.appendChild(stats);
-    body.appendChild(btn);
-    card.appendChild(body);
-
+    const wrap = document.createElement('div');
+    wrap.className = 'heatmap-wrap';
     const hist = document.createElement('div');
-    hist.className = 'gym-history';
+    hist.className = 'heatmap';
     const today = todayDate();
-    for (let i = 41; i >= 0; i--) {
+    for (let i = 83; i >= 0; i--) {
       const d = addDays(today, -i);
       const cell = document.createElement('div');
-      cell.className = 'cell' + (gymLog.includes(dateStr(d)) ? ' done' : '');
+      cell.className = 'cell';
+      if (gymLog.includes(dateStr(d))) cell.style.background = gymGoal.color;
       cell.title = dateStr(d);
       hist.appendChild(cell);
     }
-    card.appendChild(hist);
-
-    return card;
+    wrap.appendChild(hist);
+    const caption = document.createElement('div');
+    caption.className = 'heatmap-caption';
+    caption.textContent = 'Last 12 weeks';
+    wrap.appendChild(caption);
+    el.appendChild(wrap);
   }
 
   function renderDashboard() {
@@ -787,15 +938,11 @@
 
     document.getElementById('statGymWeek').textContent = `${Math.min(gymCountThisWeek(), 5)}/5`;
 
+    renderHeroRow(overall);
+    renderBarChart();
+    renderRingGrid();
+    renderGymCard();
     renderCountdowns();
-
-    const cardsEl = document.getElementById('dashGoalCards');
-    cardsEl.innerHTML = '';
-    CHECKLIST_GOALS.forEach(g => {
-      const { pct, done, total } = checklistProgress(g.id);
-      cardsEl.appendChild(buildGoalCard(g, pct, `${done}/${total} items complete`));
-    });
-    cardsEl.appendChild(buildGymCard());
   }
 
   // ---------- goals / checklists (editable) ----------
