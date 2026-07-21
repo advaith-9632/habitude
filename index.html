@@ -376,6 +376,31 @@
     padding: 10px 12px;
     border-radius: 10px;
     background: var(--grid-0);
+    position: relative;
+  }
+  .checklist-item.drop-indicator-before { box-shadow: inset 0 2px 0 var(--accent); }
+  .checklist-item.drop-indicator-after { box-shadow: inset 0 -2px 0 var(--accent); }
+
+  .drag-handle {
+    flex-shrink: 0;
+    cursor: grab;
+    color: var(--ink-soft);
+    opacity: 0.45;
+    font-size: 14px;
+    padding: 2px 4px;
+    touch-action: none;
+    user-select: none;
+    transition: opacity 0.2s ease;
+  }
+  .drag-handle:hover { opacity: 1; }
+  .drag-handle:active { cursor: grabbing; }
+
+  .checklist-item-ghost {
+    position: fixed;
+    pointer-events: none;
+    z-index: 999;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.35);
+    opacity: 0.95;
   }
 
   .check-box {
@@ -946,6 +971,78 @@
   }
 
   // ---------- goals / checklists (editable) ----------
+  function beginReorderDrag(downEvent, row, goalId, item, container) {
+    const startY = downEvent.clientY;
+    const startX = downEvent.clientX;
+    let dragging = false;
+    let ghost = null;
+
+    function clearIndicators() {
+      container.querySelectorAll('.checklist-item').forEach(r => {
+        r.classList.remove('drop-indicator-before', 'drop-indicator-after');
+      });
+    }
+
+    function findTarget(x, y) {
+      const el = document.elementFromPoint(x, y);
+      if (!el) return null;
+      const target = el.closest('.checklist-item');
+      if (!target || target === row || target.dataset.goalId !== goalId) return null;
+      return target;
+    }
+
+    function onMove(e) {
+      if (!dragging) {
+        if (Math.abs(e.clientX - startX) < 4 && Math.abs(e.clientY - startY) < 4) return;
+        dragging = true;
+        ghost = row.cloneNode(true);
+        ghost.classList.add('checklist-item-ghost');
+        ghost.style.width = row.offsetWidth + 'px';
+        document.body.appendChild(ghost);
+        row.style.opacity = '0.35';
+      }
+      ghost.style.left = (e.clientX - 20) + 'px';
+      ghost.style.top = (e.clientY - row.offsetHeight / 2) + 'px';
+
+      clearIndicators();
+      const target = findTarget(e.clientX, e.clientY);
+      if (target) {
+        const rect = target.getBoundingClientRect();
+        const before = e.clientY < rect.top + rect.height / 2;
+        target.classList.add(before ? 'drop-indicator-before' : 'drop-indicator-after');
+      }
+    }
+
+    function onUp(e) {
+      document.removeEventListener('pointermove', onMove);
+      document.removeEventListener('pointerup', onUp);
+      clearIndicators();
+      if (!dragging) return;
+      if (ghost) ghost.remove();
+      row.style.opacity = '';
+
+      const target = findTarget(e.clientX, e.clientY);
+      if (target) {
+        const rect = target.getBoundingClientRect();
+        const before = e.clientY < rect.top + rect.height / 2;
+        const arr = checklists[goalId];
+        const fromIdx = arr.findIndex(i => i.id === item.id);
+        if (fromIdx !== -1) {
+          arr.splice(fromIdx, 1);
+          let toIdx = arr.findIndex(i => i.id === target.dataset.itemId);
+          if (toIdx === -1) toIdx = arr.length;
+          if (!before) toIdx++;
+          arr.splice(toIdx, 0, item);
+          saveChecklists();
+        }
+      }
+      renderAll();
+    }
+
+    document.addEventListener('pointermove', onMove);
+    document.addEventListener('pointerup', onUp);
+  }
+
   function renderGoals() {
     const grid = document.getElementById('checklistGrid');
     grid.innerHTML = '';
@@ -971,6 +1068,17 @@
       items.forEach(item => {
         const row = document.createElement('div');
         row.className = 'checklist-item';
+        row.dataset.goalId = g.id;
+        row.dataset.itemId = item.id;
+
+        const handle = document.createElement('div');
+        handle.className = 'drag-handle';
+        handle.textContent = '⠿';
+        handle.title = 'Drag to reorder';
+        handle.addEventListener('pointerdown', e => {
+          e.preventDefault();
+          beginReorderDrag(e, row, g.id, item, itemsWrap);
+        });
 
         const box = document.createElement('div');
         box.className = 'check-box' + (item.done ? ' done' : '');
@@ -1032,6 +1140,7 @@
         actions.appendChild(editBtn);
         actions.appendChild(delBtn);
 
+        row.appendChild(handle);
         row.appendChild(box);
         row.appendChild(text);
         row.appendChild(actions);
