@@ -333,6 +333,14 @@
     border-radius: 3px;
     background: var(--grid-0);
   }
+  .heatmap .cell.clickable {
+    cursor: pointer;
+    transition: transform 0.12s ease;
+  }
+  .heatmap .cell.clickable:hover {
+    transform: scale(1.35);
+    box-shadow: 0 0 0 1px var(--accent);
+  }
   .heatmap-wrap { margin-top: 4px; }
   .heatmap-caption { font-size: 11px; color: var(--ink-soft); margin-top: 8px; }
 
@@ -777,12 +785,14 @@
   function isLoggedToday() {
     return gymLog.includes(dateStr(todayDate()));
   }
-  function toggleGymToday() {
-    const t = dateStr(todayDate());
-    if (gymLog.includes(t)) gymLog = gymLog.filter(d => d !== t);
-    else gymLog.push(t);
+  function toggleGymDate(ds) {
+    if (gymLog.includes(ds)) gymLog = gymLog.filter(d => d !== ds);
+    else gymLog.push(ds);
     saveGymLog();
     renderAll();
+  }
+  function toggleGymToday() {
+    toggleGymDate(dateStr(todayDate()));
   }
   function gymCountThisWeek() {
     const today = todayDate();
@@ -937,10 +947,13 @@
     const today = todayDate();
     for (let i = 83; i >= 0; i--) {
       const d = addDays(today, -i);
+      const ds = dateStr(d);
+      const logged = gymLog.includes(ds);
       const cell = document.createElement('div');
-      cell.className = 'cell';
-      if (gymLog.includes(dateStr(d))) cell.style.background = gymGoal.color;
-      cell.title = dateStr(d);
+      cell.className = 'cell clickable';
+      if (logged) cell.style.background = gymGoal.color;
+      cell.title = `${ds}${logged ? ' — logged. Click to unlog.' : ' — click to log a session'}`;
+      cell.addEventListener('click', () => toggleGymDate(ds));
       hist.appendChild(cell);
     }
     wrap.appendChild(hist);
